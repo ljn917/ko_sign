@@ -1,7 +1,6 @@
 #!/bin/bash
 
-KEY=$(pwd)/signing_key.priv
-CERT=$(pwd)/signing_key.x509
+source ./env.sh
 
 KERNEL_VERSION=$(uname -r)
 if [ $# -ge 1 ]; then

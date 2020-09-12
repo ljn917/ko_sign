@@ -1,0 +1,4 @@
+.git/
+*.pem
+*.der
+env.sh
