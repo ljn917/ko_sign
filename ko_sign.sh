@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Usage: sudo ./ko_sign.sh [-i | kernel_version]
+# Without arguments, it signs the current kernel.
+# -i is the interactive mode. It is convenient for signing a newly installed kernel.
+
 source ./env.sh
 
 KERNEL_BASE_DIR="/lib/modules"
