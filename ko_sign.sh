@@ -35,7 +35,17 @@ if [[ $1 == "-i" ]]; then
     fi
 fi
 
-cd ${KERNEL_BASE_DIR}/${KERNEL_VERSION}/extra/nvidia/
-for module_path in $(ls ${KERNEL_BASE_DIR}/${KERNEL_VERSION}/extra/nvidia/nvidia*); do
-    sign "${module_path}"
+for module_name in ${MODULES[@]}; do
+    module_dir_or_file=${KERNEL_BASE_DIR}/${KERNEL_VERSION}/${module_name}
+    if [[ -d ${module_dir_or_file} ]]; then
+        # is dir
+        # sign all modules in this directory, but ignore subdirs
+        for module_filename in $(ls ${module_dir_or_file}); do
+            sign "${module_dir_or_file}/${module_filename}"
+        done
+    else
+        # is file
+        # single module
+        sign "${module_dir_or_file}"
+    fi
 done
