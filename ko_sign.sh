@@ -13,9 +13,31 @@ if [ $# -ge 1 ]; then
 fi
 echo "kernel version: ${KERNEL_VERSION}"
 
-function sign() {
-    echo "signing: $1"
+function sign_ko() {
     /usr/src/kernels/${KERNEL_VERSION}/scripts/sign-file sha256 "${KEY}" "${CERT}" "$1"
+}
+
+function sign() {
+    module="$1"
+    echo "signing: $module"
+    module_basename=${module:0:-3}
+    module_ext=${module: -3}
+
+    if [[ "$module_ext" == ".xz" ]]; then
+        unxz "$module"
+        sign_ko "${module_basename}"
+        xz -f "${module_basename}"
+    elif [[ "$module_ext" == ".gz" ]]; then
+        gunzip "$module"
+        sign_ko "${module_basename}"
+        gzip -9f "${module_basename}"
+    elif [[ "$module_ext" == ".ko" ]]; then
+        sign_ko "$module"
+    else
+        echo "extension: $module_ext"
+        echo "Unknown module extension: $1"
+        exit -1
+    fi
 }
 
 if [[ $1 == "-i" ]]; then
