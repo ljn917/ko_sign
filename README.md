@@ -1,6 +1,6 @@
 # Generate a key and enroll it
 
-The process is documented in `gen_key.sh`. `env.sh` needs to be created first.
+The process is documented in `gen_key.sh`. `env.sh` needs to be created first. `KEY` and `CERT` are needed here. You are also recommended to change the `req_distinguished_name` section in `x509.genkey`.
 
 # Sign kernel modules
 
