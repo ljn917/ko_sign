@@ -65,9 +65,11 @@ for module_name in ${MODULES[@]}; do
         for module_filename in $(ls ${module_dir_or_file}); do
             sign "${module_dir_or_file}/${module_filename}"
         done
-    else
+    elif [[ -f ${module_dir_or_file} ]]; then
         # is file
         # single module
         sign "${module_dir_or_file}"
+    else
+        echo "ERROR: ${module_dir_or_file} is not a file or directory!"
     fi
 done
