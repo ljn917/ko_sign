@@ -63,7 +63,13 @@ for module_name in ${MODULES[@]}; do
         # is dir
         # sign all modules in this directory, but ignore subdirs
         for module_filename in $(ls ${module_dir_or_file}); do
-            sign "${module_dir_or_file}/${module_filename}"
+            fn="${module_dir_or_file}/${module_filename}"
+            if [[ -d ${fn} ]]; then
+                # skip subdirs
+                echo "skipping subdir: ${fn}"
+                continue
+            fi
+            sign "${fn}"
         done
     elif [[ -f ${module_dir_or_file} ]]; then
         # is file
