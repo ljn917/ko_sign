@@ -59,6 +59,17 @@ sudo mokutil --reset
 sudo modinfo KO_NAME
 ```
 
+# Auto-compiling tools
+
+## akmods (`kmodgenca`)
+
+- https://blog.monosoul.dev/2022/05/17/automatically-sign-nvidia-kernel-module-in-fedora-36/
+- https://rpmfusion.org/Howto/Secure%20Boot
+
+## DKMS
+
+- https://wiki.debian.org/SecureBoot#Making_DKMS_modules_signing_by_DKMS_signing_key_usable_with_the_secure_boot
+
 # Docs
 
 - <https://docs.fedoraproject.org/en-US/fedora/f34/system-administrators-guide/kernel-module-driver-configuration/Working_with_Kernel_Modules/#sect-signing-kernel-modules-for-secure-boot>
