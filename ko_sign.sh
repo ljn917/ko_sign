@@ -57,6 +57,17 @@ if [[ $1 == "-i" ]]; then
     fi
 fi
 
+if [ ! -f ${KEY} ]; then
+    echo "Key (${KEY}) does not exist!"
+    exit 1
+fi
+
+if [ -z ${KBUILD_SIGN_PIN+x} ]; then
+    echo "Input passphrase for key ${KEY} (press Enter for empty):"
+    read -s KBUILD_SIGN_PIN
+    export KBUILD_SIGN_PIN
+fi
+
 for module_name in ${MODULES[@]}; do
     module_dir_or_file=${KERNEL_BASE_DIR}/${KERNEL_VERSION}/${module_name}
     if [[ -d ${module_dir_or_file} ]]; then

@@ -4,7 +4,9 @@
 
 source ./env.sh
 
-openssl req -new -nodes -utf8 -sha256 -days 36500 -batch -x509 -config x509.genkey -outform DER -out ${CERT} -keyout ${KEY}
+# add -noenc (-nodes deprecated) for unencrypted keys
+# encrypt the key: openssl rsa -aes256 -in signing_key.pem -out signing_key.encrypted.key
+openssl req -new -utf8 -sha256 -days 36500 -batch -x509 -config x509.genkey -outform DER -out ${CERT} -keyout ${KEY}
 
 # secure your keys
 chmod 0400 ${CERT} ${KEY}
