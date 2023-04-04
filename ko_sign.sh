@@ -24,11 +24,11 @@ function sign() {
     module_ext=${module: -3}
 
     if [[ "$module_ext" == ".xz" ]]; then
-        unxz "$module"
+        unxz -f "$module"
         sign_ko "${module_basename}"
         xz -f "${module_basename}"
     elif [[ "$module_ext" == ".gz" ]]; then
-        gunzip "$module"
+        gunzip -f "$module"
         sign_ko "${module_basename}"
         gzip -9f "${module_basename}"
     elif [[ "$module_ext" == ".ko" ]]; then
