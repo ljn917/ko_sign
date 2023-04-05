@@ -63,9 +63,14 @@ if [ ! -f ${KEY} ]; then
 fi
 
 if [ -z ${KBUILD_SIGN_PIN+x} ]; then
-    echo "Input passphrase for key ${KEY} (press Enter for empty):"
-    read -s KBUILD_SIGN_PIN
+    read -p "Input passphrase for key ${KEY} (press Enter for empty):" -s KBUILD_SIGN_PIN
+    echo
     export KBUILD_SIGN_PIN
+fi
+
+if [ -z ${RUN_DRACUT+x} ]; then
+    read -p "Do you want to run dracut? [Y/n]:" RUN_DRACUT
+    export RUN_DRACUT
 fi
 
 for module_name in ${MODULES[@]}; do
@@ -90,3 +95,10 @@ for module_name in ${MODULES[@]}; do
         echo "ERROR: ${module_dir_or_file} is not a file or directory!"
     fi
 done
+
+# y is default
+# dracut.conf needs to be configured. See README.md for details.
+if [ ${RUN_DRACUT:-y} != "n" ]; then
+    echo "Regenerating initrd for kernel ${KERNEL_VERSION}"
+    dracut -f --kver ${KERNEL_VERSION}
+fi

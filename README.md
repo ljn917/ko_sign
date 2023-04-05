@@ -70,6 +70,16 @@ sudo modinfo KO_NAME
 
 - https://wiki.debian.org/SecureBoot#Making_DKMS_modules_signing_by_DKMS_signing_key_usable_with_the_secure_boot
 
+# initrd
+
+Add the following line to `/etc/dracut.conf.d/nvidia.conf`.
+
+```
+add_drivers+=" nvidia-drm nvidia-modeset nvidia-uvm nvidia nvidia-peermem "
+```
+
+Run `dracut -f --regenerate-all`, or use the `--kver` arguments.
+
 # Docs
 
 - <https://docs.fedoraproject.org/en-US/fedora/f34/system-administrators-guide/kernel-module-driver-configuration/Working_with_Kernel_Modules/#sect-signing-kernel-modules-for-secure-boot>
