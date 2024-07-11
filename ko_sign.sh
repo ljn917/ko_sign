@@ -4,6 +4,11 @@
 # Without arguments, it signs the current kernel.
 # -i is the interactive mode. It is convenient for signing a newly installed kernel.
 
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root"
+    exit -1
+fi
+
 source ./env.sh
 
 KERNEL_BASE_DIR="/lib/modules"
