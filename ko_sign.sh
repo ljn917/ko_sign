@@ -31,7 +31,7 @@ function sign() {
     if [[ "$module_ext" == ".xz" ]]; then
         unxz -f "$module"
         sign_ko "${module_basename}"
-        xz -f "${module_basename}"
+        xz -f --check=crc32 "${module_basename}"
     elif [[ "$module_ext" == ".gz" ]]; then
         gunzip -f "$module"
         sign_ko "${module_basename}"
